@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<extension key="com.cividesk.sync.constantcontact" type="module">
+  <file>constantcontact</file>
+  <name>Cividesk sync for ConstantContact</name>
+  <description>This extension syncs selected CiviCRM Groups (incl. Smart Groups) to ConstantContact lists.</description>
+  <urls>
+    <url desc="Licensing">http://civicrm.org/licensing</url>
+    <url desc="Main Extension Page">http://www.cividesk.com</url>
+    <url desc="Support">http://forum.civicrm.org</url>
+  </urls>
+  <license>GNU AGPL-3.0</license>
+  <maintainer>
+    <author>Nicolas Ganivet</author>
+    <email>nicolas@cividesk.com</email>
+  </maintainer>
+  <releaseDate>2013-08-08</releaseDate>
+  <version>1.0</version>
+  <develStage>stable</develStage>
+  <compatibility>
+    <ver>4.2</ver>
+    <ver>4.3</ver>
+    <ver>4.4</ver>
+    <ver>4.5</ver>      
+  </compatibility>
+  <downloadUrl>https://github.com/cividesk/com.cividesk.sync.constantcontact/archive/v1.0.zip</downloadUrl>
+  <comments>Please use the 'Administer / System Settings / Cividesk sync for ConstantContact' menu to configure this extension once installed.</comments>
+  <civix>
+    <namespace>CRM/Constantcontact</namespace>
+  </civix>
+</extension>
