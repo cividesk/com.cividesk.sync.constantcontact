@@ -42,8 +42,10 @@ function constantcontact_civicrm_buildForm($formName, &$form){
                 foreach($result as $value){
                   $options[$value->id] = $value->name;
                 }
-               $form->removeElement($field['element_name']);
-               $form->add('select', $field['element_name'], ts('Constant Contact Sync Id'), array('' => ts('- select -')) + $options);
+                if (array_key_exists( $field['element_name'], $form->_elementIndex)) {
+                  $form->removeElement($field['element_name']);
+                }
+                $form->add('select', $field['element_name'], ts('Constant Contact Sync Id'), array('' => ts('- select -')) + $options);
               } catch (CtctException $ex) {
                 foreach ($ex->getErrors() as $error) {
                   print_r($error);
