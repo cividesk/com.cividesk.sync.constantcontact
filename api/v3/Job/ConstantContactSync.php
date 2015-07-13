@@ -438,7 +438,9 @@ function civi2ctct( $contact, $ctct_list ) {
           );
       }
   }
-  $ctct = Contact::create($props);
+  if(!empty($props) && ! is_null($props)) {
+    $ctct = Contact::create($props);
+  }
   return $ctct;
 }
 
