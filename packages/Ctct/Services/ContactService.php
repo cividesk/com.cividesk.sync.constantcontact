@@ -67,7 +67,13 @@ class ContactService extends BaseService
         $baseUrl = Config::get('endpoints.base_url') . Config::get('endpoints.contacts');
         $url = $this->buildUrl($baseUrl, $params);
         $response = parent::getRestClient()->post($url, parent::getHeaders($accessToken), $contact->toJson());
-        return Contact::create(json_decode($response->body, true));
+        // CIVIDESK - fix for: PGP Catchable fatal error: Argument 1 must be an array, null given
+        $result = json_decode($response->body, true);
+        if (is_array($result)) {
+            return Contact::create($result);
+        } else {
+            return new Contact();
+        }
     }
 
     /**
@@ -126,6 +132,12 @@ class ContactService extends BaseService
         $baseUrl = Config::get('endpoints.base_url') . sprintf(Config::get('endpoints.contact'), $contact->id);
         $url = $this->buildUrl($baseUrl, $params);
         $response = parent::getRestClient()->put($url, parent::getHeaders($accessToken), $contact->toJson());
-        return Contact::create(json_decode($response->body, true));
+        // CIVIDESK - fix for: PGP Catchable fatal error: Argument 1 must be an array, null given
+        $result = json_decode($response->body, true);
+        if (is_array($result)) {
+            return Contact::create($result);
+        } else {
+            return new Contact();
+        }
     }
 }
