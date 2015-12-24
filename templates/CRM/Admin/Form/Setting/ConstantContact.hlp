@@ -35,3 +35,21 @@
 {htxt id="subscribe"}
 <p>{ts}This option will subscribe your email address to a low-traffic mailing list informing you of updates and improvements to Cividesk-produced extensions. You can of course unsubscribe at anytime.{/ts}</p>
 {/htxt}
+
+
+{htxt id="cc_username"}
+<p>{ts}Your constant contact username.{/ts}</p>
+{/htxt}
+
+{htxt id="cc_access_token"}
+<p>{ts}An access token is an opaque string that identifies a user, app, or page and can be used by the app to make API calls.{/ts}</p>
+{/htxt}
+
+{htxt id="cc_api_key"}
+<p>{ts}API stands for application programming interface. It can be helpful to think of the API as a way for different apps to talk to one another. For many users, the main interaction with the API will be through <a href="https://developer.constantcontact.com/home/api-keys.html">API keys</a>, which allow other apps to access your account without you giving out your password.{/ts}</p>
+{/htxt}
+
+{htxt id="cc_timeout"}
+<p>{ts}Restrict numbers of api call per seconds{/ts}</p>
+{/htxt}
+

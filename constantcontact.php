@@ -48,7 +48,7 @@ function constantcontact_civicrm_buildForm($formName, &$form){
                 $form->add('select', $field['element_name'], ts('Constant Contact Sync Id'), array('' => ts('- select -')) + $options);
               } catch (CtctException $ex) {
                 foreach ($ex->getErrors() as $error) {
-                  print_r($error);
+                  CRM_Core_Session::setStatus($error['error_message'], ts('Failed.'), 'error');
                 }
               }
             } 

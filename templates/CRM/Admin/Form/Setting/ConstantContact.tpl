@@ -23,16 +23,16 @@
             <div class="crm-submit-buttons">{include file="CRM/common/formButtons.tpl" location="top"}</div>
             <table class="form-layout-compressed">
                 <tr class="crm-cividesk-constantcontact-form-block">
-                    <td class="label">{$form.constantcontact_username.label}</td><td>{$form.constantcontact_username.html}</td>
+                    <td class="label">{$form.constantcontact_username.label}</td><td>{$form.constantcontact_username.html} {help id='cc_username'}</td>
                 </tr>
                 <tr class="crm-cividesk-constantcontact-form-block">
-                    <td class="label">{$form.constantcontact_usertoken.label}</td><td>{$form.constantcontact_usertoken.html}</td>
+                    <td class="label">{$form.constantcontact_usertoken.label}</td><td>{$form.constantcontact_usertoken.html} {help id='cc_access_token'}</td>
                 </tr>
                 <tr class="crm-cividesk-constantcontact-form-block">
-                    <td class="label">{$form.constantcontact_apikey.label}</td><td>{$form.constantcontact_apikey.html}</td>
+                    <td class="label">{$form.constantcontact_apikey.label}</td><td>{$form.constantcontact_apikey.html} {help id='cc_api_key'}</td>
                 </tr>
                 <tr class="crm-cividesk-constantcontact-form-block">
-                    <td class="label">{$form.constantcontact_timeout.label}</td><td>{$form.constantcontact_timeout.html}</td>
+                    <td class="label">{$form.constantcontact_timeout.label}</td><td>{$form.constantcontact_timeout.html} {help id='cc_timeout'}</td>
                 </tr>
             </table>
             <div class="crm-submit-buttons">{include file="CRM/common/formButtons.tpl" location="bottom"}</div>
