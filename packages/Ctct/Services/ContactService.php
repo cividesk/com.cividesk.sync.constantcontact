@@ -30,9 +30,7 @@ class ContactService extends BaseService
         $body = json_decode($response->body, true);
         $contacts = array();
         foreach ($body['results'] as $contact) {
-            if (is_array($contact)) {
-              $contacts[] = Contact::create($contact);
-            }
+            $contacts[] = Contact::create($contact);
         }
         return new ResultSet($contacts, $body['meta']);
     }
