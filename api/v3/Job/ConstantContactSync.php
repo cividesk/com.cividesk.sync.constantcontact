@@ -402,7 +402,7 @@ function get_sync_groups( $custom_fields ) {
         SELECT c.entity_id, c.$column as ctct_id, g.saved_search_id
         FROM $table c
              LEFT JOIN civicrm_group g ON g.id = c.entity_id
-        WHERE $column IS NOT NULL";
+        WHERE $column > ''";
     $dao = CRM_Core_DAO::executeQuery( $query );
     while ( $dao->fetch( ) ) {
         $row = $dao->toArray();
