@@ -281,6 +281,7 @@ DELETE FROM `{$this->_custom_group['table_name']}`
     $ctct->firstName    = mb_substr($contact['first_name'], 0, 50);
     $ctct->lastName     = mb_substr($contact['last_name'], 0, 50);
     $ctct->companyName  = mb_substr($contact['organization_name'], 0, 50);
+    $ctct->lists = array();
     if ($contact['group_list']) {
       foreach( explode( ',', $contact['group_list'] ) as $civi_id) {
         $ctct->lists[] = $ctct_list[$civi_id];
