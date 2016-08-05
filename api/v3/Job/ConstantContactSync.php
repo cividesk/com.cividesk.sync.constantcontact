@@ -118,24 +118,27 @@ function civicrm_api3_job_constant_contact_sync( $sync_params )
         define( 'CTCT_TIMEOUT',  $cc_timeout );
     }
     // now create query for selecting all contacts that MIGHT need to be synchronized
-    $subquery = "SELECT contact_id, MAX(modified_date) as modified_date FROM (";
+    $subquery = "SELECT contact_id, MAX(modified_date) as modified_date, email FROM (";
     // 1- add all contacts modified since last sync
     $subquery .= "
-        SELECT entity_id as contact_id, modified_date
-        FROM   civicrm_log
+        SELECT entity_id as contact_id, modified_date, e.email
+        FROM   civicrm_log l
+        LEFT JOIN civicrm_email e ON e.contact_id = l.entity_id AND e.is_bulkmail = 1
         WHERE  modified_date > '$last_sync' AND entity_table = 'civicrm_contact'";
     // 2- add all contacts added/removed from a synched group since last sync
     if ($plain_group_list) {
       $subquery .= " UNION
-          SELECT contact_id, `date` as modified_date
-          FROM   civicrm_subscription_history
+          SELECT sh.contact_id, `date` as modified_date, e.email
+          FROM   civicrm_subscription_history sh
+          LEFT JOIN civicrm_email e ON e.contact_id = sh.contact_id AND e.is_bulkmail = 1
           WHERE  `date` > '$last_sync' AND group_id IN ($plain_group_list)";
     }
     // 3- add all contacts that are part of a smart groups
     if ($smart_group_list) {
       $subquery .= " UNION
-          SELECT contact_id, NOW() as modified_date
-          FROM   civicrm_group_contact_cache
+          SELECT cg.contact_id, NOW() as modified_date, e.email
+          FROM   civicrm_group_contact_cache cg
+          LEFT JOIN civicrm_email e ON e.contact_id = cg.contact_id AND e.is_bulkmail = 1
           WHERE  group_id IN ($smart_group_list)";
     }
     // Group and Order (1 record per contact Id, older to newest)
@@ -144,11 +147,11 @@ function civicrm_api3_job_constant_contact_sync( $sync_params )
     $querySync = "
         SELECT
             s.contact_id, s.modified_date, ca.first_name, ca.last_name, ca.is_deleted,
-            cb.organization_name, e.email, ca.preferred_mail_format, ca.is_opt_out, gl.group_list,
+            cb.organization_name, IFNULL(s.email,e.email) AS email, ca.preferred_mail_format, ca.is_opt_out, gl.group_list,
             v.{$custom_fields['ctct_ind']['fields']['ctct_id']['column_name']} as ctct_id,
             v.{$custom_fields['ctct_ind']['fields']['last_sync']['column_name']} as last_sync,
-            v.{$custom_fields['ctct_ind']['fields']['checksum']['column_name']} as checksum,            
-            MD5(CONCAT_WS('',ca.first_name,ca.last_name,cb.organization_name,e.email,ca.preferred_mail_format,ca.is_opt_out,gl.group_list,ca.is_deleted)) as new_checksum
+            v.{$custom_fields['ctct_ind']['fields']['checksum']['column_name']} as checksum,    
+            MD5(CONCAT_WS('',ca.first_name,ca.last_name,cb.organization_name,IFNULL(s.email,e.email),ca.preferred_mail_format,ca.is_opt_out,gl.group_list,ca.is_deleted)) as new_checksum
         FROM
             ($subquery) s
             LEFT JOIN civicrm_email e ON e.contact_id = s.contact_id AND e.is_primary = 1
