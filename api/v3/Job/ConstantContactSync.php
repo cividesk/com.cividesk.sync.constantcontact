@@ -64,7 +64,7 @@ function civicrm_api3_job_constant_contact_sync( $sync_params )
                     'html_type' => 'Text',
                     'text_length' => 16,
                     'is_active' => 1,
-                    'is_view' => 1,
+                    'is_view' => 0,
                     ),
                 ),
             ),
@@ -272,6 +272,9 @@ function civicrm_api3_job_constant_contact_sync( $sync_params )
               $contact['ctct_id'] = $result->id; // will also be null if CtCt contact has been deleted
               if ($result->status == 'OPTOUT') {
                 $query = "UPDATE civicrm_contact SET is_opt_out = 1 WHERE id = {$contact['contact_id']}";
+                CRM_Core_DAO::executeQuery( $query );
+              } elseif ($result->status == 'ACTIVE') {
+                $query = "UPDATE civicrm_contact SET is_opt_out = 0 WHERE id = {$contact['contact_id']}";
                 CRM_Core_DAO::executeQuery( $query );
               }
             }

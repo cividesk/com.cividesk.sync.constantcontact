@@ -20,7 +20,8 @@
     <ver>4.2</ver>
     <ver>4.3</ver>
     <ver>4.4</ver>
-    <ver>4.5</ver>      
+    <ver>4.5</ver>
+    <ver>4.6</ver>
   </compatibility>
   <downloadUrl>https://github.com/cividesk/com.cividesk.sync.constantcontact/archive/v1.0.zip</downloadUrl>
   <comments>Please use the 'Administer / System Settings / Cividesk sync for ConstantContact' menu to configure this extension once installed.</comments>
