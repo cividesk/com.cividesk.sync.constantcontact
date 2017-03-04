@@ -270,6 +270,7 @@ function civicrm_api3_job_constant_contact_sync( $sync_params )
             // set it here because we want to catch ALL sync actions
             if (is_a($result, 'CtCt\Components\Contacts\Contact')) {
               $contact['ctct_id'] = $result->id; // will also be null if CtCt contact has been deleted
+              /* Disabled because this caused issues with one of our customers
               if ($result->status == 'OPTOUT') {
                 $query = "UPDATE civicrm_contact SET is_opt_out = 1 WHERE id = {$contact['contact_id']}";
                 CRM_Core_DAO::executeQuery( $query );
@@ -277,6 +278,7 @@ function civicrm_api3_job_constant_contact_sync( $sync_params )
                 $query = "UPDATE civicrm_contact SET is_opt_out = 0 WHERE id = {$contact['contact_id']}";
                 CRM_Core_DAO::executeQuery( $query );
               }
+              */
             }
             $contact['last_sync'] = date( "Y-m-d H:i:s");
             $contact['checksum']  = $contact['new_checksum'];
